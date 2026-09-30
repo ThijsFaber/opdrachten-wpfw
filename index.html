@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/index.css" />
     <script src="js/main.js" defer></script>
+    <script src="js/index.js" defer></script>
   </head>
   <body>
     <input type="checkbox" id="menu-toggle" aria-label="Menu" />
@@ -55,6 +56,21 @@
           dan even bij <a href="whoami.html">Wie ben ik</a>.
         </p>
       </article>
+
+      <form id="contact-form" class="card" novalidate>
+        <label for="naam">Naam</label>
+        <input id="naam" required minlength="2" aria-describedby="naam-error" aria-invalid="false">
+        <span id="naam-error" role="alert"></span>
+        <label for="email">E-mail</label>
+        <input id="email" type="email" required aria-describedby="email-error" aria-invalid="false">
+        <span id="email-error" role="alert"></span>
+        <label for="bericht">Bericht</label>
+        <textarea id="bericht" required minlength="10" aria-describedby="bericht-error" aria-invalid="false"></textarea>
+        <span id="bericht-error" role="alert"></span>
+        <button type="submit" class="button">Versturen</button>
+        <div id="form-status" aria-live="polite"></div>
+    </form>
+    <div id="output"></div>
     </main>
   </body>
 </html>
