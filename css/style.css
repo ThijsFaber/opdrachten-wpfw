@@ -56,7 +56,92 @@ p {
 header {
   background-color: var(--header-bg);
   padding: var(--header-padding);
+  display: flex;
+  align-items: center;
 }
+
+.pokemon-avatar {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin-left: auto;
+}
+
+#pokemon-image {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+
+  background: var(--button-bg);
+  border: 2px solid var(--button-bg);
+  border-radius: 50%;
+
+  transition: transform 0.2s ease;
+}
+
+.pokemon-avatar:hover #pokemon-image,
+.pokemon-avatar:focus-within #pokemon-image {
+  transform: scale(1.08);
+}
+
+#reroll-pokemon {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: 2px solid var(--header-bg);
+  border-radius: 50%;
+
+  background: var(--button-bg);
+  color: var(--button-text-color);
+
+  font-size: 0.85rem;
+  line-height: 1;
+
+  cursor: pointer;
+
+  opacity: 0;
+  transform: scale(0.7);
+  pointer-events: none;
+
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.pokemon-avatar:hover #reroll-pokemon,
+.pokemon-avatar:focus-within #reroll-pokemon {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+#reroll-pokemon:hover {
+  background: var(--button-bg-hover);
+}
+
+#reroll-pokemon:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #pokemon-image,
+  #reroll-pokemon {
+    transition: none;
+  }
+}
+
 
 .button {
   display: inline-block;
@@ -93,7 +178,6 @@ header {
 #menu-toggle {
   position: absolute;
   opacity: 0;
-  pointer-events: none;
 }
 
 label[for="menu-toggle"] {

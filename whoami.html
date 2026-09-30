@@ -1,76 +1,96 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nl">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Who am I</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/whoami.css">
-    </head>
-    <body>
-        <input type="checkbox" id="menu-toggle">
-        <header>
-            <label for="menu-toggle">☰</label>
-            <nav id="menu">
-                <a href="index.html" class="button">Main Menu</a>
-                <a href="projects.html" class="button">Projects</a>
-                <a href="blog.html" class="button">Blog</a>
-                <a href="whoami.html" class="button">Who am I</a>
-            </nav>
-        </header>
-        <div class="content-wrapper">
-            <h1>Who am I?</h1>
-            
-            <table class="infobox van wikipedia">
-                <tbody>
-                    <tr>
-                        <th class="infobox-above" colspan="2">
-                            <div class="title">Thijs Faber</div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td class="infobox-image" colspan="2">
-                            <img src="images/Wrentch.png" alt="Wrench van Demon Bluff">
-                            <div class="infobox-caption">
-                                Wrench in 2025
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="infobox-label">Geboren op</th>
-                        <td class="infobox-data"> 7 July, 2006</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="infobox-label">Geboorte plaats</th>
-                        <td class="infobox-data"> Gemeente zoeterwoude</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="infobox-label">Ouders</th>
-                        <td class="infobox-data"> Astrid van Leeuwen en Peter Faber</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="infobox-label">Basisschool</th>
-                        <td class="infobox-data"> Westwoud</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="infobox-label">Middelbare school</th>
-                        <td class="infobox-data"> Vlietland college</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="infobox-label">Hogere onderwijs</th>
-                        <td class="infobox-data"> Haagse hoge school HBO IT (huidig)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="infobox-label">Github</th>
-                        <td class="infobox-data"> <a href="https://github.com/ThijsFaber/opdrachten-wpfw">Deze opdracht</a> </td>
-                    </tr>
-                </tbody>
-            </table>
-            <article>
-                <p>
-                    Ik ben student Software Engineering en gepassioneerd door het bouwen en bedenken van slimme, praktische oplossingen. Op deze portfolio vind je een overzicht van projecten waar ik aan heb gewerkt, waarin ik mijn technische vaardigheden en creativiteit combineer. Ik ben altijd op zoek naar nieuwe uitdagingen om mezelf verder te ontwikkelen als developer. 
-                </p>
-            </article>
-        </div>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Who am I</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/whoami.css" />
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <input type="checkbox" id="menu-toggle" />
+    <header>
+      <label for="menu-toggle">☰</label>
+      <nav id="menu">
+        <a href="index.html" class="button">Main Menu</a>
+        <a href="projects.html" class="button">Projects</a>
+        <a href="blog.html" class="button">Blog</a>
+        <a href="whoami.html" class="button">Who am I</a>
+      </nav>
+
+      <div class="pokemon-avatar" id="pokemon-avatar">
+        <img id="pokemon-image" src="" alt="Willekeurige Pokémon" />
+        <button
+          id="reroll-pokemon"
+          type="button"
+          aria-label="Andere Pokémon"
+          title="Andere Pokémon"
+        >
+          ↻
+        </button>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <h1>Who am I?</h1>
+
+      <table class="infobox van wikipedia">
+        <tbody>
+          <tr>
+            <th class="infobox-above" colspan="2">
+              <div class="title">Thijs Faber</div>
+            </th>
+          </tr>
+          <tr>
+            <td class="infobox-image" colspan="2">
+              <img src="images/Wrentch.png" alt="Wrench van Demon Bluff" />
+              <div class="infobox-caption">Wrench in 2025</div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="infobox-label">Geboren op</th>
+            <td class="infobox-data">7 July, 2006</td>
+          </tr>
+          <tr>
+            <th scope="row" class="infobox-label">Geboorte plaats</th>
+            <td class="infobox-data">Gemeente zoeterwoude</td>
+          </tr>
+          <tr>
+            <th scope="row" class="infobox-label">Ouders</th>
+            <td class="infobox-data">Astrid van Leeuwen en Peter Faber</td>
+          </tr>
+          <tr>
+            <th scope="row" class="infobox-label">Basisschool</th>
+            <td class="infobox-data">Westwoud</td>
+          </tr>
+          <tr>
+            <th scope="row" class="infobox-label">Middelbare school</th>
+            <td class="infobox-data">Vlietland college</td>
+          </tr>
+          <tr>
+            <th scope="row" class="infobox-label">Hogere onderwijs</th>
+            <td class="infobox-data">Haagse hoge school HBO IT (huidig)</td>
+          </tr>
+          <tr>
+            <th scope="row" class="infobox-label">Github</th>
+            <td class="infobox-data">
+              <a href="https://github.com/ThijsFaber/opdrachten-wpfw"
+                >Deze opdracht</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <article>
+        <p>
+          Ik ben student Software Engineering en gepassioneerd door het bouwen
+          en bedenken van slimme, praktische oplossingen. Op deze portfolio vind
+          je een overzicht van projecten waar ik aan heb gewerkt, waarin ik mijn
+          technische vaardigheden en creativiteit combineer. Ik ben altijd op
+          zoek naar nieuwe uitdagingen om mezelf verder te ontwikkelen als
+          developer.
+        </p>
+      </article>
+    </div>
+  </body>
 </html>
