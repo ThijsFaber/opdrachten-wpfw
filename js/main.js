@@ -4,16 +4,19 @@ const rerollButton = document.getElementById("reroll-pokemon");
 const POKEMON_COUNT = 1025;
 
 async function randomPokemon() {
-  const randomNumber = Math.floor(Math.random() * POKEMON_COUNT) + 1;
-  const isShiny = Math.random() < 0.1;
+  rerollButton.disabled = true;
+  pokemonImage.alt = "Pokémon wordt geladen...";
 
   try {
+    const randomNumber = Math.floor(Math.random() * POKEMON_COUNT) + 1;
+    const isShiny = Math.random() < 0.1;
+
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${randomNumber}`,
     );
 
     if (!response.ok) {
-      throw new Error("Could not fetch Pokémon");
+      throw new Error(`PokéAPI gaf een fout (${response.status}).`);
     }
 
     const pokemon = await response.json();
@@ -23,7 +26,14 @@ async function randomPokemon() {
       : pokemon.sprites.other["official-artwork"].front_default;
     pokemonImage.alt = isShiny ? `Shiny ${pokemon.name}` : pokemon.name;
   } catch (error) {
-    console.error(error);
+    console.error("Pokémon ophalen mislukt:", error);
+
+    pokemonImage.removeAttribute("src");
+    pokemonImage.alt = "Pokémon kon niet worden geladen";
+    pokemonImage.title =
+      "Kon Pokémon niet laden. Klik op ↻ om opnieuw te proberen";
+  } finally {
+    rerollButton.disabled = false;
   }
 }
 

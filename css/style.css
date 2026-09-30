@@ -135,6 +135,11 @@ header {
   outline-offset: 2px;
 }
 
+#reroll-pokemon:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
 @media (prefers-reduced-motion: reduce) {
   #pokemon-image,
   #reroll-pokemon {
