@@ -1,0 +1,24 @@
+h1 {
+  font-family: "Brush Script MT", "Brush Script Std", cursive;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 20rem;
+  margin: 0 auto var(--gap-lg);
+}
+
+.hero-image img {
+  display: block;
+  width: 100%;
+}
+
+@media (min-width: 48rem) {
+  .hero-image {
+    float: right;
+    width: 30%;
+    min-width: 15rem;
+    max-width: none;
+    margin: 0 0 var(--gap-sm) var(--gap-lg);
+  }
+}

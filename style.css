@@ -1,0 +1,142 @@
+:root {
+  --font-family: sans-serif;
+  --bg-color: beige;
+  --text-color: black;
+  --color-surface: white;
+
+  --page-margin: 5%;
+  --header-bg: #8abdff;
+  --header-padding: 0.75rem var(--page-margin);
+
+  --button-bg: #0066cc;
+  --button-bg-hover: #0052a3;
+  --button-text-color: white;
+  --button-padding: 0.75rem 1.5rem;
+  --button-radius: 4px;
+
+  --card-radius: 8px;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  --gap-sm: 0.5rem;
+  --gap-lg: 2rem;
+
+  --h1-size: clamp(2rem, 4vw + 1rem, 4rem);
+  --p-size: clamp(1rem, 1vw + 0.75rem, 1.5rem);
+  --p-line-height: 1.6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+h1 {
+  font-size: var(--h1-size);
+}
+
+p {
+  font-size: var(--p-size);
+  line-height: var(--p-line-height);
+}
+
+header {
+  background-color: var(--header-bg);
+  padding: var(--header-padding);
+}
+
+.button {
+  display: inline-block;
+  padding: var(--button-padding);
+  background: var(--button-bg);
+  color: var(--button-text-color);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid var(--button-bg);
+  border-radius: var(--button-radius);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--button-bg-hover);
+  border-color: var(--button-bg-hover);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
+.card {
+  overflow: hidden;
+  background-color: var(--color-surface);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
+#menu-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+label[for="menu-toggle"] {
+  display: inline-block;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#menu-toggle:focus-visible ~ header label[for="menu-toggle"] {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
+#menu {
+  display: none;
+}
+
+#menu-toggle:checked ~ header #menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  margin-top: var(--gap-sm);
+}
+
+.content-wrapper {
+  margin-inline: var(--page-margin);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --page-margin: 10%;
+  }
+
+  label[for="menu-toggle"] {
+    display: none;
+  }
+
+  #menu,
+  #menu-toggle:checked ~ header #menu {
+    display: flex;
+    flex-direction: row;
+    gap: var(--gap-lg);
+    margin-top: 0;
+  }
+}

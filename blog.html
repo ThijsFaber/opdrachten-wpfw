@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/blog.css" />
+  </head>
+  <body>
+    <input type="checkbox" id="menu-toggle" aria-label="Menu" />
+    <header>
+      <label for="menu-toggle" aria-hidden="true">☰</label>
+      <nav id="menu" aria-label="Hoofdmenu">
+        <a href="index.html" class="button">Hoofdmenu</a>
+        <a href="projects.html" class="button">Projecten</a>
+        <a href="blog.html" class="button">Blog</a>
+        <a href="whoami.html" class="button">Wie ben ik</a>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+      <h1>Blog</h1>
+
+      <div class="blog-layout">
+        <div class="posts">
+          <article class="card">
+            <img
+              class="post-image"
+              src="https://imgs.search.brave.com/OTvjevf_XEgwIvT3Q1H-ABsm831OKdWJVCd6DLM2CkE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdG9y/YWdlLmdob3N0Lmlv/L2MvNTgvZmQvNThm/ZGM4MmEtYWQ4NC00/NGUyLWFkNTgtMTY2/ZDFiNDE5YmM0L2Nv/bnRlbnQvaW1hZ2Vz/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDI0/LzA1L3Bva2Vtb24t/Z2xhemVkLXJvbS1o/YWNrLndlYnA"
+              alt="Een Pokémon-spel op een Game Boy"
+            />
+            <div class="post-header">
+              <h2 class="post-title">Romhacks maken is makkelijker dan ooit!</h2>
+              <p class="post-meta">
+                De overstap van binary patching naar decompilation-based hacking
+                <time class="post-date" datetime="2026-01-31">31 januari 2026</time>
+              </p>
+            </div>
+            <div class="post-body">
+              <p>
+                De romhackingcommunity gaat nu helemaal los. Dankzij pokeemerald
+                en pokeemerald-expansion kunnen romhackers nieuwe functies
+                toevoegen die nog nooit eerder gezien zijn. In de afgelopen 3
+                maanden hebben we onder andere gezien: twee regio's in één
+                savebestand, een shiny-markering voor kleurenblinden,
+                aanpasbare shiny-kansen, voice acting en nog veel meer.
+              </p>
+              <div class="post-actions">
+                <button type="button" class="button">
+                  Lees meer » (werkt niet)
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <aside class="sidebar">
+          <section class="card about-card">
+            <img
+              class="about-card__image"
+              src="images/Wrentch.png"
+              alt="Plaatje van de Wrentch van Demon Bluff"
+            />
+            <div class="about-card__body">
+              <h2 class="about-card__name">Thijs</h2>
+              <p>De geniale geweldige schrijver van deze prachtige website.</p>
+              <p>
+                <a href="whoami.html" class="button">Meer info</a>
+              </p>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>
