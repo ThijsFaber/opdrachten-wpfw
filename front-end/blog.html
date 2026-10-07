@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/blog.css" />
+    <script src="js/blog.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <input type="checkbox" id="menu-toggle" aria-label="Menu" />
+    <header>
+      <label for="menu-toggle" aria-hidden="true">☰</label>
+      <nav id="menu" aria-label="Hoofdmenu">
+        <a href="index.html" class="button">Hoofdmenu</a>
+        <a href="projects.html" class="button">Projecten</a>
+        <a href="blog.html" class="button">Blog</a>
+        <a href="whoami.html" class="button">Wie ben ik</a>
+      </nav>
+
+      <div class="pokemon-avatar" id="pokemon-avatar">
+        <img id="pokemon-image" src="" alt="Dit genereerd willekeurige Pokémon" />
+        <button
+          id="reroll-pokemon"
+          type="button"
+          aria-label="Andere Pokémon"
+          title="Andere Pokémon"
+        >
+          ↻
+        </button>
+      </div>
+    </header>
+
+    <main class="content-wrapper">
+      <h1>Blog</h1>
+
+      <div class="blog-layout">
+        <div class="posts" id="blog-container"></div>
+
+        <aside class="sidebar">
+          <section class="card about-card">
+            <img
+              class="about-card__image"
+              src="images/Wrentch.png"
+              alt="Plaatje van de Wrentch van Demon Bluff"
+            />
+            <div class="about-card__body">
+              <h2 class="about-card__name">Thijs</h2>
+              <p>De geniale geweldige schrijver van deze prachtige website.</p>
+              <p>
+                <a href="whoami.html" class="button">Meer info</a>
+              </p>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>

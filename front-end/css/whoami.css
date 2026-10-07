@@ -1,0 +1,53 @@
+.infobox {
+  --infobox-border: #ccc;
+  --infobox-row-border: #eee;
+  --infobox-label-bg: #f0f0eb;
+  --infobox-muted: #666;
+
+  width: 100%;
+  margin: 0 auto var(--gap-lg);
+  border: 1px solid var(--infobox-border);
+  border-collapse: collapse;
+  background-color: var(--color-surface);
+}
+
+.infobox :where(th, td) {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--infobox-row-border);
+}
+
+.infobox-above {
+  background-color: var(--infobox-label-bg);
+  text-align: center;
+  font-size: 1.125rem;
+}
+
+.infobox-label {
+  background-color: var(--infobox-label-bg);
+  width: 40%;
+}
+
+.infobox-image {
+  background-color: var(--infobox-label-bg);
+  text-align: center;
+}
+
+.infobox-image img {
+  display: block;
+  margin: 0 auto;
+}
+
+.infobox-caption {
+  margin-top: 0.25rem;
+  font-size: 1rem;
+  color: var(--infobox-muted);
+}
+
+@media (min-width: 48rem) {
+  .infobox {
+    float: right;
+    width: 20rem;
+    margin: 0 0 var(--gap-lg) var(--gap-lg);
+  }
+}

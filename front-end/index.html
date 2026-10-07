@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoofdmenu</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="js/main.js" defer></script>
+    <script src="js/index.js" defer></script>
+  </head>
+  <body>
+    <input type="checkbox" id="menu-toggle" aria-label="Menu" />
+    <header>
+      <label for="menu-toggle" aria-hidden="true">☰</label>
+      <nav id="menu" aria-label="Hoofdmenu">
+        <a href="index.html" class="button">Hoofdmenu</a>
+        <a href="projects.html" class="button">Projecten</a>
+        <a href="blog.html" class="button">Blog</a>
+        <a href="whoami.html" class="button">Wie ben ik</a>
+      </nav>
+      
+      <div class="pokemon-avatar" id="pokemon-avatar">
+        <img id="pokemon-image" src="" alt="Willekeurige Pokémon" />
+        <button
+          id="reroll-pokemon"
+          type="button"
+          aria-label="Andere Pokémon"
+          title="Andere Pokémon"
+        >
+          ↻
+        </button>
+      </div>
+    </header>
+
+    <main class="content-wrapper">
+      <h1>Welkom op mijn website!</h1>
+
+      <figure class="hero-image">
+        <img
+          src="https://imgs.search.brave.com/vMBqp9xONmYIxNqG57AGstXfqfcsDSFr6jPuW6HAa2Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS50ZW5vci5jb20v/M2VaVHZjWGNleGdB/QUFBTS9rb3JlenVp/LWFuaW1lLmdpZg.gif"
+          alt="Een meisje aan het zwaaien"
+        />
+      </figure>
+
+      <article>
+        <p>
+          Leuk dat je langskomt! Dit is mijn persoonlijke hoekje van het
+          internet, waar ik dingen bouw, deel en af en toe over schrijf.
+        </p>
+        <p>
+          Onder <a href="projects.html">Projecten</a> vind je een overzicht van
+          wat ik gemaakt heb, van kleine experimenten tot grotere klussen. Op de
+          <a href="blog.html">Blog</a> schrijf ik af en toe over dingen die ik
+          tegenkom of leer. En wil je weten wie er achter dit alles zit, kijk
+          dan even bij <a href="whoami.html">Wie ben ik</a>.
+        </p>
+      </article>
+      <h2>Laat een lief berichtje aan mij achter:</h2>
+      <form id="contact-form" class="card" novalidate>
+        <label for="naam">Naam</label>
+        <input id="naam" required minlength="2" aria-describedby="naam-error" aria-invalid="false">
+        <span id="naam-error" role="alert"></span>
+        <label for="email">E-mail</label>
+        <input id="email" type="email" required aria-describedby="email-error" aria-invalid="false">
+        <span id="email-error" role="alert"></span>
+        <label for="bericht">Bericht</label>
+        <textarea id="bericht" required minlength="10" aria-describedby="bericht-error" aria-invalid="false"></textarea>
+        <span id="bericht-error" role="alert"></span>
+        <button type="submit" class="button">Versturen</button>
+        <div id="form-status" aria-live="polite"></div>
+    </form>
+    <div id="output"></div>
+    </main>
+  </body>
+</html>

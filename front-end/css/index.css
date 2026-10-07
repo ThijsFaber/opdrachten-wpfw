@@ -1,0 +1,89 @@
+:root {
+  --color-error: #b00020;
+  --color-success: #1b6e2d;
+  --color-border: #767676;
+}
+
+h1 {
+  font-family: "Brush Script MT", "Brush Script Std", cursive;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 20rem;
+  margin: 0 auto var(--gap-lg);
+}
+
+.hero-image img {
+  display: block;
+  width: 100%;
+}
+
+@media (min-width: 48rem) {
+  .hero-image {
+    float: right;
+    width: 30%;
+    min-width: 15rem;
+    max-width: none;
+    margin: 0 0 var(--gap-sm) var(--gap-lg);
+  }
+}
+
+#contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  max-width: 36rem;
+  margin: var(--gap-lg) auto;
+  padding: var(--gap-lg);
+}
+
+#contact-form label {
+  font-weight: 600;
+  margin-top: var(--gap-sm);
+}
+
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  font: inherit;
+  color: var(--text-color);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--button-radius);
+}
+
+#contact-form textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+#contact-form input:focus-visible,
+#contact-form textarea:focus-visible {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 2px;
+}
+
+/* Error state */
+#contact-form [aria-invalid="true"] {
+  border-color: var(--color-error);
+  border-width: 2px;
+}
+
+#contact-form [role="alert"] {
+  min-height: 1.25rem;   /* reserves space so the layout doesn't jump */
+  font-size: 0.9rem;
+  color: var(--color-error);
+}
+
+/* Button and status */
+#contact-form .button {
+  align-self: flex-start;
+  margin-top: var(--gap-sm);
+}
+
+#form-status {
+  margin-top: var(--gap-sm);
+  font-weight: 600;
+}

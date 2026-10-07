@@ -1,0 +1,23 @@
+[
+  {
+    "image": {
+      "src": "https://imgs.search.brave.com/OTvjevf_XEgwIvT3Q1H-ABsm831OKdWJVCd6DLM2CkE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdG9y/YWdlLmdob3N0Lmlv/L2MvNTgvZmQvNThm/ZGM4MmEtYWQ4NC00/NGUyLWFkNTgtMTY2/ZDFiNDE5YmM0L2Nv/bnRlbnQvaW1hZ2Vz/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDI0/LzA1L3Bva2Vtb24t/Z2xhemVkLXJvbS1o/YWNrLndlYnA",
+      "alt": "Een Pokémon-spel op een Game Boy"
+    },
+    "title": "Romhacks maken is makkelijker dan ooit!",
+    "meta": "De overstap van binary patching naar decompilation-based hacking",
+    "date": "2026-01-31",
+    "content": "De romhackingcommunity gaat nu helemaal los. Dankzij pokeemerald en pokeemerald-expansion kunnen romhackers nieuwe functies toevoegen die nog nooit eerder gezien zijn. In de afgelopen 3 maanden hebben we onder andere gezien: twee regio's in één savebestand, een shiny-markering voor kleurenblinden, aanpasbare shiny-kansen, voice acting en nog veel meer.",
+    "button": "Lees meer » (werkt niet)"
+  },
+  {
+    "title": "Mijn tweede blogpost",
+    "date": "2026-02-15",
+    "content": "Dit is mijn tweede blogpost.",
+    "image": {
+      "src": "images/Wrentch.png",
+      "alt": "Voorbeeldafbeelding"
+    },
+    "button": "Lees meer »"
+  }
+]

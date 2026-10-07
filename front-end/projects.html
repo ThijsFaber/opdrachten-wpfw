@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projecten</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/projects.css" />
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <input type="checkbox" id="menu-toggle" aria-label="Menu" />
+    <header>
+      <label for="menu-toggle" aria-hidden="true">☰</label>
+      <nav id="menu" aria-label="Hoofdmenu">
+        <a href="index.html" class="button">Hoofdmenu</a>
+        <a href="projects.html" class="button">Projecten</a>
+        <a href="blog.html" class="button">Blog</a>
+        <a href="whoami.html" class="button">Wie ben ik</a>
+      </nav>
+      
+      <div class="pokemon-avatar" id="pokemon-avatar">
+        <img id="pokemon-image" src="" alt="Willekeurige Pokémon" />
+        <button
+          id="reroll-pokemon"
+          type="button"
+          aria-label="Andere Pokémon"
+          title="Andere Pokémon"
+        >
+          ↻
+        </button>
+      </div>
+    </header>
+
+    <main class="content-wrapper">
+      <h1>Mijn projecten</h1>
+      <p>Een verzameling van alle projecten die ik gemaakt heb.</p>
+
+      <div class="project-grid">
+        <article class="card project-card">
+          <h2>Boardroom</h2>
+          <p>Een op Milanote geïnspireerde, lokale moodboardmaker.</p>
+          <ul class="tags">
+            <li class="tag">React</li>
+            <li class="tag">Electron</li>
+            <li class="tag">Vibes</li>
+          </ul>
+          <div class="project-links">
+            <button type="button" class="button">Bekijk project</button>
+            <button type="button" class="button button-secondary">
+              Broncode
+            </button>
+          </div>
+        </article>
+
+        <article class="card project-card">
+          <h2>Royale Flora</h2>
+          <p>
+            We hebben in een groep een website gemaakt in opdracht van Royale
+            Flora.
+          </p>
+          <ul class="tags">
+            <li class="tag">React</li>
+            <li class="tag">TypeScript</li>
+            <li class="tag">Docker</li>
+          </ul>
+          <div class="project-links">
+            <button type="button" class="button">Bekijk project</button>
+            <button type="button" class="button button-secondary">
+              Broncode
+            </button>
+          </div>
+        </article>
+
+        <article class="card project-card">
+          <h2>Eigen website</h2>
+          <p>Deze website, gemaakt voor de huidige opdracht.</p>
+          <ul class="tags">
+            <li class="tag">HTML</li>
+            <li class="tag">CSS</li>
+          </ul>
+          <div class="project-links">
+            <button type="button" class="button">Bekijk project</button>
+            <button type="button" class="button button-secondary">
+              Broncode
+            </button>
+          </div>
+        </article>
+      </div>
+    </main>
+  </body>
+</html>

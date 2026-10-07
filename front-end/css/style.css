@@ -1,0 +1,249 @@
+:root {
+  --font-family: sans-serif;
+  --bg-color: beige;
+  --text-color: black;
+  --color-surface: white;
+
+  --page-margin: 5%;
+  --header-bg: #8abdff;
+  --header-padding: 0.75rem var(--page-margin);
+
+  --button-bg: #0066cc;
+  --button-bg-hover: #0052a3;
+  --button-text-color: white;
+  --button-padding: 0.75rem 1.5rem;
+  --button-radius: 4px;
+
+  --card-radius: 8px;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  --gap-sm: 0.5rem;
+  --gap-lg: 2rem;
+
+  --h1-size: clamp(2rem, 4vw + 1rem, 4rem);
+  --p-size: clamp(1rem, 1vw + 0.75rem, 1.5rem);
+  --p-line-height: 1.6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+h1 {
+  font-size: var(--h1-size);
+}
+
+p {
+  font-size: var(--p-size);
+  line-height: var(--p-line-height);
+}
+
+header {
+  background-color: var(--header-bg);
+  padding: var(--header-padding);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--gap-sm) var(--gap-lg);
+}
+
+.pokemon-avatar {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+#pokemon-image {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+
+  background: var(--button-bg);
+  border: 2px solid var(--button-bg);
+  border-radius: 50%;
+
+  transition: transform 0.2s ease;
+}
+
+.pokemon-avatar:hover #pokemon-image,
+.pokemon-avatar:focus-within #pokemon-image {
+  transform: scale(1.08);
+}
+
+#reroll-pokemon {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: 2px solid var(--header-bg);
+  border-radius: 50%;
+
+  background: var(--button-bg);
+  color: var(--button-text-color);
+
+  font-size: 0.85rem;
+  line-height: 1;
+
+  cursor: pointer;
+
+  opacity: 0;
+  transform: scale(0.7);
+  pointer-events: none;
+
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.pokemon-avatar:hover #reroll-pokemon,
+.pokemon-avatar:focus-within #reroll-pokemon {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+#reroll-pokemon:hover {
+  background: var(--button-bg-hover);
+}
+
+#reroll-pokemon:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
+#reroll-pokemon:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #pokemon-image,
+  #reroll-pokemon {
+    transition: none;
+  }
+}
+
+
+.button {
+  display: inline-block;
+  padding: var(--button-padding);
+  background: var(--button-bg);
+  color: var(--button-text-color);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid var(--button-bg);
+  border-radius: var(--button-radius);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--button-bg-hover);
+  border-color: var(--button-bg-hover);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
+.card {
+  overflow: hidden;
+  background-color: var(--color-surface);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
+#menu-toggle {
+  position: absolute;
+  opacity: 0;
+}
+
+label[for="menu-toggle"] {
+  display: inline-block;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#menu-toggle:focus-visible~header label[for="menu-toggle"] {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
+#menu {
+  display: none;
+  order: 3;
+  flex-basis: 100%; 
+}
+
+#menu .button {
+  white-space: nowrap;
+}
+
+#menu-toggle:checked~header #menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  margin-top: var(--gap-sm);
+}
+
+.content-wrapper {
+  margin-inline: var(--page-margin);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --page-margin: 10%;
+  }
+
+  header {
+    flex-wrap: nowrap;
+  }
+
+  label[for="menu-toggle"] {
+    display: none;
+  }
+
+  #menu {
+    flex-basis: auto;
+    order: 0;
+  }
+
+  #menu,
+  #menu-toggle:checked~header #menu {
+    display: flex;
+    flex-direction: row;
+    gap: var(--gap-lg);
+    margin-top: 0;
+  }
+}
