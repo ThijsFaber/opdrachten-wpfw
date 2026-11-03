@@ -17,9 +17,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapPostEndpoints();
-app.MapGetEndpoints();
-app.MapPutEndpoints();
-app.MapDeleteEndpoints();
+app.MapBlogPostEndpoints();
+app.MapProjectEndpoints();
 
 app.Run();
