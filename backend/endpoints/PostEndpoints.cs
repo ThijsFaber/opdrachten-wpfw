@@ -22,7 +22,6 @@ public static class PostEndpoints
                     "Title en/of inhoud mogen niet leeg zijn"
                 );
             }
-            ;
 
             if (dto.Inhoud.Trim().Length < 10)
             {

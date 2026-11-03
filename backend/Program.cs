@@ -18,5 +18,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapPostEndpoints();
+app.MapGetEndpoints();
+app.MapPutEndpoints();
+app.MapDeleteEndpoints();
 
 app.Run();
