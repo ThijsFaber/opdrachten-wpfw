@@ -1,7 +1,5 @@
 using backend.DTO;
-using backend.data;
-using backend.models;
-using Microsoft.EntityFrameworkCore;
+using backend.services;
 
 namespace backend.endpoints;
 
@@ -14,139 +12,74 @@ public static class ProjectEndpoints
 
         projects.MapPost("/", async (
             PostProject dto,
-            ApplicationDbContext db
+            ProjectService service
         ) =>
         {
-            if (string.IsNullOrWhiteSpace(dto.Title) || string.IsNullOrWhiteSpace(dto.Categorie) || string.IsNullOrWhiteSpace(dto.Beschrijving) || string.IsNullOrWhiteSpace(dto.GithubUrl))
-            {
-                return Results.BadRequest(
-                    "Geen lege velden toegestaan"
-                );
-            }
+            var result = await service.CreateAsync(dto);
 
-            var project = new Project
-            {
-                Title = dto.Title,
-                Beschrijving = dto.Beschrijving,
-                Categorie = dto.Categorie,
-                GithubUrl = dto.GithubUrl,
-                Datum = DateTime.UtcNow
-            };
+            if (result.Error is not null)
+                return Results.BadRequest(result.Error);
 
-            db.projects.Add(project);
-            await db.SaveChangesAsync();
+            var project = result.Project!;
 
-            var response = new GetProject
-            (
-                project.Id,
-                project.Title,
-                project.Beschrijving,
-                project.Categorie,
-                project.GithubUrl,
-                project.Datum
+            return Results.Created(
+                $"/Project/{project.Id}",
+                project
             );
-
-            return Results.Created($"/Project/{project.Id}", response);
-        }
-        );
+        });
 
         projects.MapGet("/{id:int}", async (
             int id,
-            ApplicationDbContext db
+            ProjectService service
         ) =>
         {
-            var project = await db.projects.FindAsync(id);
+            var project = await service.GetByIdAsync(id);
 
             if (project is null)
                 return Results.NotFound();
 
-            var dto = new GetProject(
-                project.Id,
-                project.Title,
-                project.Beschrijving,
-                project.Categorie,
-                project.GithubUrl,
-                project.Datum
-            );
-
-            return Results.Ok(dto);
+            return Results.Ok(project);
         });
 
         projects.MapGet("/", async (
-            ApplicationDbContext db
+            ProjectService service
         ) =>
         {
-            var dto = await db.projects
-                .Select(p => new GetProject(
-                    p.Id,
-                    p.Title,
-                    p.Beschrijving,
-                    p.Categorie,
-                    p.GithubUrl,
-                    p.Datum
-                ))
-                .ToListAsync();
+            var projects = await service.GetAllAsync();
 
-            return Results.Ok(dto);
+            return Results.Ok(projects);
         });
 
         projects.MapPut("/{id:int}", async (
             int id,
             PutProject dto,
-            ApplicationDbContext db
+            ProjectService service
         ) =>
         {
-            if (string.IsNullOrWhiteSpace(dto.Title) ||
-                string.IsNullOrWhiteSpace(dto.Categorie) ||
-                string.IsNullOrWhiteSpace(dto.Beschrijving) ||
-                string.IsNullOrWhiteSpace(dto.GithubUrl))
-            {
-                return Results.BadRequest(
-                    "Geen lege velden toegestaan"
-                );
-            }
+            var result = await service.UpdateAsync(id, dto);
 
-            var project = await db.projects.FindAsync(id);
+            if (result.Error is not null)
+                return Results.BadRequest(result.Error);
 
-            if (project is null)
-            {
+            if (result.Project is null)
                 return Results.NotFound("Project niet gevonden");
-            }
 
-            project.Title = dto.Title.Trim();
-            project.Categorie = dto.Categorie.Trim();
-            project.Beschrijving = dto.Beschrijving.Trim();
-            project.GithubUrl = dto.GithubUrl.Trim();
-
-            await db.SaveChangesAsync();
-
-            var response = new GetProject(
-                project.Id,
-                project.Title,
-                project.Beschrijving,
-                project.Categorie,
-                project.GithubUrl,
-                project.Datum
-            );
-
-            return Results.Ok(response);
+            return Results.Ok(result.Project);
         });
 
         projects.MapDelete("/{id:int}", async (
             int id,
-            ApplicationDbContext db
+            ProjectService service
         ) =>
         {
-            var project = await db.projects.FindAsync(id);
+            var deleted = await service.DeleteAsync(id);
 
-            if (project is null)
+            if (!deleted)
                 return Results.NotFound();
-
-            db.projects.Remove(project);
-            await db.SaveChangesAsync();
 
             return Results.NoContent();
         });
+
         return endpoints;
     }
 }

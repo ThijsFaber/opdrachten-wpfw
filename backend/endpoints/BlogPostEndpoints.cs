@@ -1,7 +1,5 @@
 using backend.DTO;
-using backend.data;
-using backend.models;
-using Microsoft.EntityFrameworkCore;
+using backend.services;
 
 namespace backend.endpoints;
 
@@ -14,132 +12,70 @@ public static class BlogpostEndpoints
 
         blogposts.MapPost("/", async (
             PostBlogpost dto,
-            ApplicationDbContext db
+            BlogpostService service
         ) =>
         {
-            if (string.IsNullOrWhiteSpace(dto.Title) || string.IsNullOrWhiteSpace(dto.Inhoud))
-            {
-                return Results.BadRequest(
-                    "Title en/of inhoud mogen niet leeg zijn"
-                );
-            }
+            var result = await service.CreateAsync(dto);
 
-            if (dto.Inhoud.Trim().Length < 10)
-            {
-                return Results.BadRequest(
-                    "Inhoud moet minimaal 10 tekens bevatten"
-                );
-            }
+            if (result.Error is not null)
+                return Results.BadRequest(result.Error);
 
-            var blogpost = new Blogpost
-            {
-                Title = dto.Title,
-                Inhoud = dto.Inhoud,
-                Publicatiedatum = DateTime.UtcNow
-            };
+            var blogpost = result.Blogpost!;
 
-            db.Blogposts.Add(blogpost);
-            await db.SaveChangesAsync();
-
-            var response = new GetBlogpost(
-                blogpost.Id,
-                blogpost.Title,
-                blogpost.Inhoud,
-                blogpost.Publicatiedatum
+            return Results.Created(
+                $"/BlogPost/{blogpost.Id}",
+                blogpost
             );
-
-            return Results.Created($"/Blogpost/{blogpost.Id}", response);
         });
 
         blogposts.MapGet("/{id:int}", async (
             int id,
-            ApplicationDbContext db
+            BlogpostService service
         ) =>
         {
-            var blogpost = await db.Blogposts.FindAsync(id);
+            var blogpost = await service.GetByIdAsync(id);
 
             if (blogpost is null)
                 return Results.NotFound();
 
-            var dto = new GetBlogpost(
-              blogpost.Id,
-              blogpost.Title,
-              blogpost.Inhoud,
-              blogpost.Publicatiedatum
-            );
-
-            return Results.Ok(dto);
+            return Results.Ok(blogpost);
         });
 
         blogposts.MapGet("/", async (
-            ApplicationDbContext db
+            BlogpostService service
         ) =>
         {
-            var Allblogposts = await db.Blogposts.Select(b => new GetBlogpost(
-                b.Id,
-                b.Title,
-                b.Inhoud,
-                b.Publicatiedatum
-            )).ToListAsync();
+            var blogposts = await service.GetAllAsync();
 
-            return Results.Ok(Allblogposts);
+            return Results.Ok(blogposts);
         });
 
         blogposts.MapPut("/{id:int}", async (
             int id,
             PutBlogpost dto,
-            ApplicationDbContext db
+            BlogpostService service
         ) =>
         {
-            if (string.IsNullOrWhiteSpace(dto.Title) ||
-                string.IsNullOrWhiteSpace(dto.Inhoud))
-            {
-                return Results.BadRequest(
-                    "Title en/of inhoud mogen niet leeg zijn"
-                );
-            }
+            var result = await service.UpdateAsync(id, dto);
 
-            if (dto.Inhoud.Trim().Length < 10)
-            {
-                return Results.BadRequest(
-                    "Inhoud moet minimaal 10 tekens bevatten"
-                );
-            }
+            if (result.Error is not null)
+                return Results.BadRequest(result.Error);
 
-            var blogpost = await db.Blogposts.FindAsync(id);
-
-            if (blogpost is null)
-            {
+            if (result.Blogpost is null)
                 return Results.NotFound("Blogpost niet gevonden");
-            }
 
-            blogpost.Title = dto.Title.Trim();
-            blogpost.Inhoud = dto.Inhoud.Trim();
-
-            await db.SaveChangesAsync();
-
-            var response = new GetBlogpost(
-                blogpost.Id,
-                blogpost.Title,
-                blogpost.Inhoud,
-                blogpost.Publicatiedatum
-            );
-
-            return Results.Ok(response);
+            return Results.Ok(result.Blogpost);
         });
 
         blogposts.MapDelete("/{id:int}", async (
             int id,
-            ApplicationDbContext db
+            BlogpostService service
         ) =>
         {
-            var blogpost = await db.Blogposts.FindAsync(id);
+            var deleted = await service.DeleteAsync(id);
 
-            if (blogpost is null)
+            if (!deleted)
                 return Results.NotFound();
-
-            db.Blogposts.Remove(blogpost);
-            await db.SaveChangesAsync();
 
             return Results.NoContent();
         });
