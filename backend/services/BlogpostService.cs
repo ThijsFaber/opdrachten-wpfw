@@ -1,6 +1,7 @@
-using backend.DTO;
 using backend.data;
+using backend.DTO;
 using backend.models;
+using backend.services.common;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.services;
@@ -14,25 +15,25 @@ public class BlogpostService
         _db = db;
     }
 
-    public async Task<(GetBlogpost? Blogpost, string? Error)> CreateAsync(
+    public async Task<ServiceResult<GetBlogpost>> CreateAsync(
         PostBlogpost dto)
     {
         var error = Validate(dto.Title, dto.Inhoud);
 
         if (error is not null)
-            return (null, error);
+            return ServiceResult<GetBlogpost>.Invalid(error);
 
         var blogpost = new Blogpost
         {
-            Title = dto.Title!,
-            Inhoud = dto.Inhoud!,
+            Title = dto.Title!.Trim(),
+            Inhoud = dto.Inhoud!.Trim(),
             Publicatiedatum = DateTime.UtcNow
         };
 
         _db.Blogposts.Add(blogpost);
         await _db.SaveChangesAsync();
 
-        return (ToDto(blogpost), null);
+        return ServiceResult<GetBlogpost>.Success(ToDto(blogpost));
     }
 
     public async Task<GetBlogpost?> GetByIdAsync(int id)
@@ -45,35 +46,34 @@ public class BlogpostService
     public async Task<List<GetBlogpost>> GetAllAsync()
     {
         return await _db.Blogposts
-            .Select(b => new GetBlogpost(
-                b.Id,
-                b.Title,
-                b.Inhoud,
-                b.Publicatiedatum
-            ))
+            .Select(blogpost => new GetBlogpost(
+                blogpost.Id,
+                blogpost.Title,
+                blogpost.Inhoud,
+                blogpost.Publicatiedatum))
             .ToListAsync();
     }
 
-    public async Task<(GetBlogpost? Blogpost, string? Error)> UpdateAsync(
+    public async Task<ServiceResult<GetBlogpost>> UpdateAsync(
         int id,
         PutBlogpost dto)
     {
         var error = Validate(dto.Title, dto.Inhoud);
 
         if (error is not null)
-            return (null, error);
+            return ServiceResult<GetBlogpost>.Invalid(error);
 
         var blogpost = await _db.Blogposts.FindAsync(id);
 
         if (blogpost is null)
-            return (null, null);
+            return ServiceResult<GetBlogpost>.NotFound();
 
         blogpost.Title = dto.Title!.Trim();
         blogpost.Inhoud = dto.Inhoud!.Trim();
 
         await _db.SaveChangesAsync();
 
-        return (ToDto(blogpost), null);
+        return ServiceResult<GetBlogpost>.Success(ToDto(blogpost));
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -91,16 +91,16 @@ public class BlogpostService
 
     private static string? Validate(string? title, string? inhoud)
     {
-        if (string.IsNullOrWhiteSpace(title) ||
-            string.IsNullOrWhiteSpace(inhoud))
-        {
-            return "Title en/of inhoud mogen niet leeg zijn";
-        }
+        var error = InputValidation.RequiredFields(
+            "Title en/of inhoud mogen niet leeg zijn",
+            title,
+            inhoud);
 
-        if (inhoud.Trim().Length < 10)
-        {
+        if (error is not null)
+            return error;
+
+        if (inhoud!.Trim().Length < 10)
             return "Inhoud moet minimaal 10 tekens bevatten";
-        }
 
         return null;
     }
@@ -111,7 +111,6 @@ public class BlogpostService
             blogpost.Id,
             blogpost.Title,
             blogpost.Inhoud,
-            blogpost.Publicatiedatum
-        );
+            blogpost.Publicatiedatum);
     }
 }

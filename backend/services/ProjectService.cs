@@ -1,6 +1,7 @@
-using backend.DTO;
 using backend.data;
+using backend.DTO;
 using backend.models;
+using backend.services.common;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.services;
@@ -14,32 +15,31 @@ public class ProjectService
         _db = db;
     }
 
-    public async Task<(GetProject? Project, string? Error)> CreateAsync(
+    public async Task<ServiceResult<GetProject>> CreateAsync(
         PostProject dto)
     {
         var error = Validate(
             dto.Title,
             dto.Categorie,
             dto.Beschrijving,
-            dto.GithubUrl
-        );
+            dto.GithubUrl);
 
         if (error is not null)
-            return (null, error);
+            return ServiceResult<GetProject>.Invalid(error);
 
         var project = new Project
         {
-            Title = dto.Title!,
-            Beschrijving = dto.Beschrijving!,
-            Categorie = dto.Categorie!,
-            GithubUrl = dto.GithubUrl!,
+            Title = dto.Title!.Trim(),
+            Beschrijving = dto.Beschrijving!.Trim(),
+            Categorie = dto.Categorie!.Trim(),
+            GithubUrl = dto.GithubUrl!.Trim(),
             Datum = DateTime.UtcNow
         };
 
         _db.projects.Add(project);
         await _db.SaveChangesAsync();
 
-        return (ToDto(project), null);
+        return ServiceResult<GetProject>.Success(ToDto(project));
     }
 
     public async Task<GetProject?> GetByIdAsync(int id)
@@ -52,18 +52,17 @@ public class ProjectService
     public async Task<List<GetProject>> GetAllAsync()
     {
         return await _db.projects
-            .Select(p => new GetProject(
-                p.Id,
-                p.Title,
-                p.Beschrijving,
-                p.Categorie,
-                p.GithubUrl,
-                p.Datum
-            ))
+            .Select(project => new GetProject(
+                project.Id,
+                project.Title,
+                project.Beschrijving,
+                project.Categorie,
+                project.GithubUrl,
+                project.Datum))
             .ToListAsync();
     }
 
-    public async Task<(GetProject? Project, string? Error)> UpdateAsync(
+    public async Task<ServiceResult<GetProject>> UpdateAsync(
         int id,
         PutProject dto)
     {
@@ -71,25 +70,24 @@ public class ProjectService
             dto.Title,
             dto.Categorie,
             dto.Beschrijving,
-            dto.GithubUrl
-        );
+            dto.GithubUrl);
 
         if (error is not null)
-            return (null, error);
+            return ServiceResult<GetProject>.Invalid(error);
 
         var project = await _db.projects.FindAsync(id);
 
         if (project is null)
-            return (null, null);
+            return ServiceResult<GetProject>.NotFound();
 
         project.Title = dto.Title!.Trim();
-        project.Categorie = dto.Categorie!.Trim();
         project.Beschrijving = dto.Beschrijving!.Trim();
+        project.Categorie = dto.Categorie!.Trim();
         project.GithubUrl = dto.GithubUrl!.Trim();
 
         await _db.SaveChangesAsync();
 
-        return (ToDto(project), null);
+        return ServiceResult<GetProject>.Success(ToDto(project));
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -111,15 +109,12 @@ public class ProjectService
         string? beschrijving,
         string? githubUrl)
     {
-        if (string.IsNullOrWhiteSpace(title) ||
-            string.IsNullOrWhiteSpace(categorie) ||
-            string.IsNullOrWhiteSpace(beschrijving) ||
-            string.IsNullOrWhiteSpace(githubUrl))
-        {
-            return "Geen lege velden toegestaan";
-        }
-
-        return null;
+        return InputValidation.RequiredFields(
+            "Geen lege velden toegestaan",
+            title,
+            categorie,
+            beschrijving,
+            githubUrl);
     }
 
     private static GetProject ToDto(Project project)
@@ -130,7 +125,6 @@ public class ProjectService
             project.Beschrijving,
             project.Categorie,
             project.GithubUrl,
-            project.Datum
-        );
+            project.Datum);
     }
 }

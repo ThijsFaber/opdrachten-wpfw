@@ -1,5 +1,7 @@
 using backend.DTO;
 using backend.services;
+using backend.services.common;
+using backend.security;
 
 namespace backend.endpoints;
 
@@ -12,26 +14,23 @@ public static class ProjectEndpoints
 
         projects.MapPost("/", async (
             PostProject dto,
-            ProjectService service
-        ) =>
+            ProjectService service) =>
         {
             var result = await service.CreateAsync(dto);
 
-            if (result.Error is not null)
+            if (result.Status == ServiceResultStatus.Invalid)
                 return Results.BadRequest(result.Error);
 
-            var project = result.Project!;
+            var project = result.Value!;
 
             return Results.Created(
                 $"/Project/{project.Id}",
-                project
-            );
-        });
+                project);
+        }).RequireAuthorization(AppPolicies.WriteContent);
 
         projects.MapGet("/{id:int}", async (
             int id,
-            ProjectService service
-        ) =>
+            ProjectService service) =>
         {
             var project = await service.GetByIdAsync(id);
 
@@ -42,8 +41,7 @@ public static class ProjectEndpoints
         });
 
         projects.MapGet("/", async (
-            ProjectService service
-        ) =>
+            ProjectService service) =>
         {
             var projects = await service.GetAllAsync();
 
@@ -53,24 +51,22 @@ public static class ProjectEndpoints
         projects.MapPut("/{id:int}", async (
             int id,
             PutProject dto,
-            ProjectService service
-        ) =>
+            ProjectService service) =>
         {
             var result = await service.UpdateAsync(id, dto);
 
-            if (result.Error is not null)
+            if (result.Status == ServiceResultStatus.Invalid)
                 return Results.BadRequest(result.Error);
 
-            if (result.Project is null)
+            if (result.Status == ServiceResultStatus.NotFound)
                 return Results.NotFound("Project niet gevonden");
 
-            return Results.Ok(result.Project);
-        });
+            return Results.Ok(result.Value);
+        }).RequireAuthorization(AppPolicies.WriteContent);
 
         projects.MapDelete("/{id:int}", async (
             int id,
-            ProjectService service
-        ) =>
+            ProjectService service) =>
         {
             var deleted = await service.DeleteAsync(id);
 
@@ -78,7 +74,7 @@ public static class ProjectEndpoints
                 return Results.NotFound();
 
             return Results.NoContent();
-        });
+        }).RequireAuthorization(AppPolicies.WriteContent);
 
         return endpoints;
     }
